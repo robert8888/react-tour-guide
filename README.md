@@ -309,7 +309,7 @@ tour.on("afterScroll", () => console.log("aftetr scrolling window to target posi
 } 
 // you can change style of each step
 .rtg__container--step-3 .rtg__modal{
-  --arrowSize: 30px;
+  --arrow-size: 30px;
 }
 .my-class.rtg.__container{}
 
