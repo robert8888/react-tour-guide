@@ -1,6 +1,11 @@
 {
   "name": "react-rtg",
   "description": "React Tour Guide - RTG - interactive tour through react app ",
+  "homepage": "https://robert8888.github.io/rtg-demo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robert8888/react-tour-guide"
+  },
   "keywords": [
     "react",
     "tour guide",

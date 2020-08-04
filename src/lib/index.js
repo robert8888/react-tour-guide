@@ -1,12 +1,4 @@
-
-import Tour from "./components/Tour/Tour";
-import Step from "./components/Step/Step";
-import TourRoot from "./components/Context/Context";
-import useTour from "./components/hooks/useTour";
-
-export {
-    Tour,
-    Step,
-    TourRoot,
-    useTour
-}
+export {default as Tour} from "./components/Tour/Tour";
+export {default as Step} from "./components/Step/Step";
+export {default as TourRoot} from "./components/Context/Context";
+export {default as useTour} from "./components/hooks/useTour"

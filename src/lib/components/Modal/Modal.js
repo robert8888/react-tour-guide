@@ -89,7 +89,6 @@ const Modal = ({children, target, placement, offsetX, offsetY, visible, refreshT
     const getTopToWindow = useCallback((cRect, placement) => {
         switch(placement){
             case "top":{
-                console.log("offste",placement,  cRect , offsetY)
                 return cRect.height / 2 + offsetY;
             }
             case "bottom": {
