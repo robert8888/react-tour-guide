@@ -71,12 +71,13 @@ const Menu = () => {
     )
 }
 
-const App = () => {
+const Logger = () =>{
     const [tour] = useTour("tourId"); 
+    const [log, setLog] = useSate("");
     
     useEffect(()=>{
         const onNext = (current, next, lenght) => {
-            console.log(
+            setLog(
                 `current step is ${current} 
                  next will be ${next}, 
                  is ${lenght} steps`
@@ -84,12 +85,17 @@ const App = () => {
         }
         tour.on("next", onNext);
         return () => tour.un("next", onNext);
-    }, [tour])
+    }, [tour, setLog])
     
+    return (<span>{log}</span>)
+}
+
+const App = () => {
     return (
         <TourRoot>
             <TourGuide/>
             <Menu/>
+            <Logger/>
         </TourRoot>
     )
 }
