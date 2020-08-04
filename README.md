@@ -305,7 +305,7 @@ tour.on("afterScroll", () => console.log("aftetr scrolling window to target posi
 .rtg__conatiner{
   --primary-color: #0b708b;
   --pin-color: #0fa9d0;
-  --arrowSize: 15px;
+  --arrow-size: 15px;
 } 
 // you can change style of each step
 .rtg__container--step-3 .rtg__modal{

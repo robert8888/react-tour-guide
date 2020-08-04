@@ -31,29 +31,29 @@
       display: block;
       left: 50%;
       transform: translateX(-50%);
-      bottom: calc((-1 * var(--arrowSize)) + 1px);
-      width: calc(2 * var(--arrowSize));
-      height: var(--arrowSize);
+      bottom: calc((-1 * var(--arrow-size)) + 1px);
+      width: calc(2 * var(--arrow-size));
+      height: var(--arrow-size);
       clip-path: polygon(0 0, 50% 100%, 100% 0);
     }
   }
   &--top-right{
     &:after{
       display: block;
-      bottom: calc(-1 * var(--arrowSize));
-      left: calc(-1 * var(--arrowSize));
-      width: calc(2 * var(--arrowSize));
-      height: calc(2 * var(--arrowSize));
+      bottom: calc(-1 * var(--arrow-size));
+      left: calc(-1 * var(--arrow-size));
+      width: calc(2 * var(--arrow-size));
+      height: calc(2 * var(--arrow-size));
       clip-path: polygon(0 100%, 50% 0, 100% 50%);
     }
   }
   &--top-left{
     &:after{
       display: block;
-      bottom: calc(-1 * var(--arrowSize));
-      right: calc(-1 * var(--arrowSize));
-      width: calc(2 * var(--arrowSize));
-      height: calc(2 * var(--arrowSize));
+      bottom: calc(-1 * var(--arrow-size));
+      right: calc(-1 * var(--arrow-size));
+      width: calc(2 * var(--arrow-size));
+      height: calc(2 * var(--arrow-size));
       clip-path: polygon(50% 0, 100% 100%, 0 50%);
     }
   }
@@ -62,9 +62,9 @@
       display: block;
       left: 50%;
       transform: translateX(-50%);
-      top: calc((-1 * var(--arrowSize)) + 1px);
-      width: calc(2 * var(--arrowSize));
-      height: var(--arrowSize);
+      top: calc((-1 * var(--arrow-size)) + 1px);
+      width: calc(2 * var(--arrow-size));
+      height: var(--arrow-size);
       clip-path: polygon(0 100%, 50% 0, 100% 100%);
     }
   }
@@ -72,10 +72,10 @@
     &:after{
       display: block;
       top: 50%;
-      left: calc((-1 * var(--arrowSize)) + 1px);
+      left: calc((-1 * var(--arrow-size)) + 1px);
       transform: translateY(-50%);
-      width: var(--arrowSize);
-      height: calc(2 * var(--arrowSize));
+      width: var(--arrow-size);
+      height: calc(2 * var(--arrow-size));
       clip-path: polygon(100% 0, 0 50%, 100% 100%);
     }
   }
@@ -84,29 +84,29 @@
       display: block;
       top: 50%;
       transform: translateY(-50%);
-      right: calc((-1 * var(--arrowSize)) + 1px);
-      width: var(--arrowSize);
-      height: calc(2 * var(--arrowSize));
+      right: calc((-1 * var(--arrow-size)) + 1px);
+      width: var(--arrow-size);
+      height: calc(2 * var(--arrow-size));
       clip-path: polygon(0 0, 100% 50%, 0 100%);
     }
   }
   &--bottom-left{
     &:after{
       display: block;
-      top: calc(-1 * var(--arrowSize));
-      right: calc(-1 * var(--arrowSize));
-      width: calc(2 * var(--arrowSize));
-      height: calc(2 * var(--arrowSize));
+      top: calc(-1 * var(--arrow-size));
+      right: calc(-1 * var(--arrow-size));
+      width: calc(2 * var(--arrow-size));
+      height: calc(2 * var(--arrow-size));
       clip-path: polygon(0 50%, 100% 0, 50% 100%);
     }
   }
   &--bottom-right{
     &:after{
       display: block;
-      top: calc(-1 * var(--arrowSize));
-      left: calc(-1 * var(--arrowSize));
-      width: calc(2 * var(--arrowSize));
-      height: calc(2 * var(--arrowSize));
+      top: calc(-1 * var(--arrow-size));
+      left: calc(-1 * var(--arrow-size));
+      width: calc(2 * var(--arrow-size));
+      height: calc(2 * var(--arrow-size));
       clip-path: polygon(0 0, 50% 100%, 100% 50%);
     }
   }
