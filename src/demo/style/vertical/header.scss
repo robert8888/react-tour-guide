@@ -1,0 +1,85 @@
+header{
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  a {
+    @include link();
+    @include link-color($primary);
+  }
+  svg {
+    fill: $primary;
+    width: 40px;
+    height: 40px;
+    transition: transform 1s;
+    transform: rotate(90deg);
+  }
+  button{
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  nav {
+    &:hover, &:focus-within{
+      svg {
+        transform: rotate(0deg);
+      }
+      ul {
+        display: block;
+      }
+    }
+
+  }
+  ul{
+    background: white;
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 98%;
+    left: 0;
+    margin: 0 1%;
+    list-style: none;
+    padding: 0;
+    border: 1px solid rgba($primary, 0.2);
+    box-shadow: 1px 1px 2px 0 rgba(#000, 0.2);
+
+    li{
+      padding: 0;
+      z-index: 1;
+      position: relative;
+      a {
+        padding: 15px;
+        display: block;
+      }
+      &:not(:last-of-type) a {
+        border-bottom: 1px solid rgba($primary, 0.2);
+      }
+      &:hover{
+        background: rgba($primary, 0.1);
+      }
+    }
+    &:hover{
+      display: block;
+    }
+    &:before{
+      content: "";
+      display: block;
+      position: absolute;
+      top: -50px;
+      bottom: -50px;
+      left: -50px;
+      right: 0;
+      z-index: 0;
+    }
+  }
+  @media screen and (min-width: map-get($break-points, "sm")){
+      ul {
+        width: 300px;
+        right: 0;
+        left: unset;
+      }
+  }
+}

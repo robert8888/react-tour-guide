@@ -1,0 +1,63 @@
+.l-container{
+  width: 90%;
+  max-width: 1268px;
+  margin : 0 auto;
+}
+
+.l-row{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
+$break-points :(
+    "xs": 576px,
+    "sm": 768px,
+    "md": 720px,
+    "lg": 960px,
+    "xl": 1140px
+);
+
+@each $break-point, $width in $break-points{
+  @for $size from 1 through 12 {
+    @media screen and (min-width: $width) {
+      .l-col-#{$break-point}-#{$size} {
+        width: 100% *  ($size / 12);
+        padding: 0 16px;
+      };
+    }
+  }
+}
+// under first
+@for $size from 1 through 12 {
+  @media screen and (max-width: map-get($break-points, "xs")) {
+    .l-col-xs-#{$size} {
+      width: 100% *  ($size / 12);
+      padding: 0 16px;
+    }
+  }
+}
+
+
+// row gutters
+@each $break-point, $width in $break-points {
+  @for $counter from 1 through 50 {
+    @media screen and (min-width: $width) {
+      .l-row-g-#{$break-point}-#{$counter * 5} {
+        margin-top: $counter * 5px;
+      }
+    };
+    .l-row-g-#{$break-point}-#{$counter * 5} {
+      @extend .l-row;
+    }
+  }
+}
+// under first
+@for $counter from 1 through 50 {
+  @media screen and (max-width: map-get($break-points, "xs")) {
+    .l-row-g-xs-#{$counter * 5} {
+      margin-top: $counter * 5px;
+    }
+  }
+}

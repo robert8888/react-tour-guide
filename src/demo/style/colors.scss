@@ -1,0 +1,14 @@
+$primary: #0b708b;
+$secondary: #f05935;
+
+@mixin background-stripes($express: 1%,  $size: 50px, $color: $primary){
+  & {
+    background: repeating-linear-gradient(
+        135deg,
+        $color,
+        $color 10px,
+        darken($color, $express) $size,
+        darken($color, $express) $size,
+    );
+  }
+}

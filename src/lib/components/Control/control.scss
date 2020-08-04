@@ -1,0 +1,64 @@
+body{
+  counter-reset: rtg_selector;
+}
+
+.rtg {
+  &__control{
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    margin-top: 24px;
+  }
+
+  &__button{
+    border: none;
+    padding: 0;
+    margin: 0 2px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--primary-color);
+    outline: none;
+    &:focus{
+      outline: solid 1px rgba(0,0,0,0.1);
+    }
+    &:disabled{
+      cursor: not-allowed;
+    }
+    svg{
+      width: 30px;
+      height: 30px;
+    }
+    &--prev{
+      svg{
+        transform: rotate(180deg);
+      }
+    }
+    &--selector{
+      position: relative;
+
+      svg{
+        width: 20px;
+        height: 20px;
+      }
+      &:before{
+        counter-increment: rtg_selector;
+        content: counter(rtg_selector);
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 28px;
+        width: 20px;
+      }
+      &:hover:before{
+        opacity: .5;
+      }
+    }
+    &--hide-before:before{
+      display: none;
+    }
+  }
+}

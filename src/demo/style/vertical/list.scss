@@ -1,0 +1,38 @@
+.list{
+  &__section{
+    min-height: 600px;
+  }
+  &__container{
+    @include component-border();
+    @include scrolls();
+    height: 400px;
+    overflow: auto;
+    padding: 8px;
+    margin-top: 24px;
+    ol{
+      margin: 0;
+      padding-left: 30px;
+    }
+    li{
+      margin: 24px 0;
+      padding-left: 10px;
+    }
+  }
+  &__source{
+    max-width: 95%;
+    margin: 25px auto;
+    text-align: center;
+    color: rgba(#000, 0.4);
+  }
+
+  @media screen and (min-width: map-get($break-points, "sm")) {
+    &__container{
+      ol{
+        padding-left: 40px;
+      }
+      li{
+        padding-left: 18px;
+      }
+    }
+  }
+}

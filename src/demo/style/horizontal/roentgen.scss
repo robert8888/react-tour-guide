@@ -1,0 +1,32 @@
+.horizontal {
+  h3 {
+    font-size: .6rem;
+  }
+  &__section--roentgen{
+    background: $primary;
+    img{
+      width: 250px;
+    }
+    [class*="row"]:first-of-type{
+      [class*="col"]:first-of-type{
+          display: grid;
+          place-items: center;
+      }
+      [class*="col"]:last-of-type{
+          display: grid;
+          place-items: center;
+      }
+    }
+
+    ol {
+      margin: 0;
+      padding: 0;
+      padding-left: 16px;
+      li{
+        margin: 10px 0;
+      }
+    }
+  }
+
+
+}

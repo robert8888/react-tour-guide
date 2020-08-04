@@ -1,0 +1,15 @@
+.rtg__badge{
+  position: absolute;
+  left: -6px;
+  top:-6px;
+  border-radius: 4px;
+  padding: 2px 6px;
+  display: flex;
+  justify-content: center;
+  background: var(--primary-color);
+  color: white;
+  min-width: 60px;
+  span{
+    font-size: 0.9rem;
+  }
+}

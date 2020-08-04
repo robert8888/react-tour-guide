@@ -1,0 +1,50 @@
+
+.newsletter{
+  min-height: auto;
+  padding: 20px 0;
+  margin-bottom: 100px;
+  &__form{
+    @include component-border();
+    margin-top: 50px;
+    padding: 35px;
+    .newsletter__form__group{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      overflow: auto;
+      align-items: flex-start;
+      align-content: space-between;
+    }
+
+    label{
+      display: block;
+      margin: 10px auto;
+    }
+    input{
+      flex-grow: 4;
+      width: 100%;
+      display: inline-block;
+      margin: 5px 5px 5px 0;
+    }
+
+    button{
+      margin: 5px 5px 0 auto;
+      min-width: 150px;
+    }
+
+    @media screen and (min-width: map-get($break-points, "lg")){
+      input {
+        width: calc(100% - 280px);
+      }
+      button{
+        margin: 5px 5px 0 30px;
+        align-self: flex-start;
+      }
+    }
+    @media screen and (max-width: map-get($break-points, "md")){
+      button{
+        width: 100%;
+      }
+    }
+  }
+}

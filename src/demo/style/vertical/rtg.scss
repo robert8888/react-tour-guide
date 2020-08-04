@@ -1,0 +1,76 @@
+//div.rtg__container{
+//  --primary-color: black;
+//}
+
+//div.rtg__modal:after{
+//  content: none;
+//}
+
+//div.rtg__modal{
+//  background: black;
+//  color:white;
+//}
+
+//use step number or custom class on step element
+
+
+.vertical.rtg__container--step-3{
+  .rtg__modal {
+    background: black;
+    color: white;
+    p {
+      color:white;
+    }
+    max-width: 350px;
+  }
+  .rtg__button--close{
+    color: darkred;
+    &:hover{
+      color: red;
+    }
+  }
+  .rtg__badge{
+    background: darkred;
+    width: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    span{
+      font-size: .8rem;
+    }
+  }
+  .rtg__button--selector{
+    svg {
+      transition: transform;
+    }
+    &:hover {
+      svg {
+        transform: rotate(45deg) scale(0.8);
+      }
+      &:before{
+        color: orangered;
+      }
+    }
+  }
+  .rtg__button--current{
+    color: red;
+  }
+}
+
+.vertical.rtg__container--step-4{
+  --primary-color: #ef3602;
+}
+
+.vertical .rtg__modal p {
+  max-width: 400px;
+}
+
+.vertical.rtg__container--step-10{
+  div.rtg__modal p:last-of-type{
+    margin: 0;
+    text-align: center;
+  }
+  .rtg__control{
+    margin: 0;
+  }
+}
+

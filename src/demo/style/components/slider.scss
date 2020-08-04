@@ -1,0 +1,40 @@
+.c-slider{
+  overflow-x: hidden;
+  &__slides{
+    scroll-snap-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 2000px;
+    position: relative;
+
+  }
+  &__container{
+    scroll-snap-align: center;
+    position: relative;
+  }
+  &__slide{
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    border:none;
+    color: $primary;
+    z-index: 5;
+    &:focus{
+      outline: 1px solid rgba($primary, 0.2);
+    }
+    &--next{
+      right: -50px;
+    }
+    &--prev{
+      left: -50px;
+    }
+  }
+}

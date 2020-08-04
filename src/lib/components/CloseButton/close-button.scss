@@ -1,0 +1,12 @@
+.rtg__button{
+  &--close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: var(--primary-color);
+    svg{
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

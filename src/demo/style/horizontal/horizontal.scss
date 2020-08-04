@@ -1,0 +1,31 @@
+@import "./intro.scss";
+@import "./roentgen.scss";
+@import "./sources.scss";
+@import "./rtg.scss";
+
+main.page__horizontal{
+  width: 100%;
+  width: -moz-max-content;
+  width: max-content;
+  min-height: 100vh;
+  height: 100vh;
+
+  p, h1, h2, h3, h4, h5, h6, span, li{
+    color: white;
+  };
+  section {
+    padding: 1px 0;
+    padding-bottom: 50px;
+  }
+  &>div:first-child {
+    height: 100%;
+  }
+
+  button{
+    &:focus{
+      border-color: black;
+      outline: 2px solid black;
+      outline-offset: 2px;
+    }
+  }
+}

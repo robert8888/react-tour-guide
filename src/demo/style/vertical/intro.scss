@@ -1,0 +1,22 @@
+//---------------------------
+.intro{
+  &__content{
+    //display: flex;
+    text-align: center;
+  }
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15vh;
+    img{
+      max-width: 90%;
+      width : 400px;
+    }
+  }
+  &__title{
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+  }
+}

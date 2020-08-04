@@ -1,8 +1,12 @@
-import Example from './components/Example';
-import SecondExample from './components/SecondExample';
 
-export default Example;
+import Tour from "./components/Tour/Tour";
+import Step from "./components/Step/Step";
+import TourRoot from "./components/Context/Context";
+import useTour from "./components/hooks/useTour";
 
 export {
-  SecondExample,
-};
+    Tour,
+    Step,
+    TourRoot,
+    useTour
+}

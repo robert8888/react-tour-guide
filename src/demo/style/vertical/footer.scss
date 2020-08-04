@@ -1,0 +1,44 @@
+
+footer{
+  background: $primary;
+  @include background-stripes();
+  &, p {
+    color: white;
+  }
+  min-height: 50vh;
+  button{
+    margin-left: 0;
+    margin-right: 16px;
+    display: block;
+    @media screen and (min-width: map-get($break-points, "lg")){
+      display: inline-block;
+    }
+  }
+  a{
+    @include link-color(white);
+  }
+
+  .l-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 50vh;
+  }
+  .l-row--bottom{
+    border-top: 1px solid white;
+    padding: 12px;
+  }
+  .section__title{
+    color: white;
+    text-align: left;
+  }
+}
+.code{
+  display: block;
+  pre{
+    background: darken($primary , 10%);
+    padding: 16px 48px 16px 16px;
+    border-radius: 5px;
+    display: inline-block;
+  }
+}

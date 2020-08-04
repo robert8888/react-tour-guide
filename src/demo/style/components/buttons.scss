@@ -1,0 +1,72 @@
+
+button{
+  background: none;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  font-family: Roboto, "sans-serif";
+  border: 2px solid black;
+  border-radius: 3px;
+  margin: 16px;
+  cursor: pointer;
+  a {
+    @include link();
+  }
+}
+
+@mixin button-colors($border-color, $background: whtie, $color: black){
+  &{
+    color: $color;
+    background: $background;
+    border-color: $border-color;
+    outline-offset: 2px;
+  }
+  &:focus, &:active,  &:focus:active, &:active:focus:hover{
+    border-color: $border-color;
+    outline: $border-color;
+  }
+  &:focus{
+    outline: 1px solid lighten($border-color, 5%);
+  }
+  &:hover{
+    text-shadow: 0px 0  1px $color;
+  }
+}
+
+.button{
+  &--light{
+    @include button-colors($primary,white, $primary);
+  }
+  &--dark{
+    @include button-colors($primary, $primary, white);
+    @include background-stripes(2%, 35px);
+    &:hover{
+      color: $primary;
+      background: white;
+      text-shadow: 0px 0  1px $primary;
+    }
+  }
+  &--secondary {
+    @include button-colors($secondary, $secondary, white);
+    @include background-stripes(2%, 35px, $secondary);
+    &:hover{
+      color: $secondary;
+      background: white;
+      text-shadow: 0px 0  1px $secondary;
+    }
+  }
+
+  &--white{
+    @include button-colors(white, transparent, white)
+  }
+
+  &--transparent{
+    @include button-colors(transparent, transparent, $primary);
+    &:focus{
+      outline-color: $primary;
+    }
+    &:focus:hover{
+      outline: none;
+    }
+  }
+}

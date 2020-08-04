@@ -1,0 +1,30 @@
+section.horizontal__section--sources{
+  &.horizontal__section{
+    padding-bottom: 0;
+  }
+  [class*="row"]:first-of-type h2{
+    color: $primary;
+    text-align: center;
+    height: 20vh;
+  }
+  & , .l-container,{
+    min-height: 100%;
+  }
+  [class*="col"]{
+    display: grid;
+    place-items: center;
+  }
+  #sources{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  button{
+    a {
+      color:inherit;
+    }
+    padding: 18px 40px;
+  }
+}

@@ -1,0 +1,41 @@
+.l-section--slider{
+  min-height: unset;
+  margin-bottom: 50px;
+  counter-reset: slider;
+
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+//  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(#000, .2);
+  border-radius: 10px;
+  margin: 0;
+  padding: 20px;
+  width: 250px;
+  height: 100%;
+  user-select: none;
+  h1 {
+    font-size: 4rem;
+    color: $primary;
+    height: 100px;
+  }
+  h2{
+    margin-top: auto;
+  }
+  p {
+    text-align: center;
+    font-size: 1rem;
+    width: 80%;
+  }
+  &:hover{
+    h1{
+      color: $secondary;
+    }
+    .title--underscored:after{
+      border-color: $secondary;
+    }
+  }
+}

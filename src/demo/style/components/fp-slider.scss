@@ -1,0 +1,44 @@
+html{
+  overflow-x: auto;
+}
+
+.c-fp-slider{
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+  height: 100%;
+  background: inherit;
+
+  &__slide{
+    overflow-y: auto;
+    background: inherit;
+  }
+
+  &__controls{
+    position: fixed;
+    width: 100%;
+    display: flex;
+    bottom: 0;
+    justify-content: space-between;
+    background: inherit;
+    pointer-events: none;
+    button {
+      pointer-events: all;
+    }
+  }
+  @media screen and (min-width: map-get($break-points, "xs")) {
+      &__controls{
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: unset;
+        padding: 0 20px;
+      }
+  }
+  @media screen and(hover: none) and (pointer: coarse){
+    &__controls{
+      display: none;
+    }
+  }
+}

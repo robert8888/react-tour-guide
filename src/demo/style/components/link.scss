@@ -1,0 +1,16 @@
+@mixin link-color($color) {
+  & , &:active, &:visited, &:hover{
+    color: $color;
+  }
+}
+@mixin link(){
+  & , &:active, &:visited, &:hover{
+    text-decoration: none;
+  }
+}
+
+
+a {
+  @include link-color($primary);
+}
+

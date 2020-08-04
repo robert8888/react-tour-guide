@@ -1,0 +1,35 @@
+.horizontal{
+  h3{
+    font-size: .6rem;
+  }
+
+  &__intro__logo{
+    max-width: 250px;
+  }
+  &__section--intro {
+    background: $secondary;
+    height: 100%;
+
+    h2  {
+      margin: 10px auto;
+    }
+    @media screen and (min-width: map-get($break-points, "sm")) {
+      h2{
+        margin: 30px auto;
+      }
+    }
+
+    [class*="l-col"]:first-of-type {
+      display: flex;
+      justify-content: center;
+    }
+    [class*="l-col"]:last-of-type {
+      display: grid;
+      place-items: center ;
+      h2{
+        text-align: left;
+      }
+    }
+  }
+}
+
