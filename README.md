@@ -1,7 +1,7 @@
 # About
 The idea for this library was to create a trip component library that is created in react way rather than json config, while still keeping the style in a separate css file built in such way that they can be easily overwritten and customized.
 
-### [Demo page](http://www.google.pl)
+### [Demo page](https://robert8888.github.io/rtg-demo)
 
 # TLTR
 ```
@@ -15,7 +15,9 @@ import {Tour, Step} from "react-rtg";
 
 const TourGuide = ({isOpen, setOpen}) => {
     return (
-        <Tour isOpen={isOpen} onClose={setOpen.bind(null, false)} onOpen={setOpen.bind(null, true)}>
+        <Tour isOpen={isOpen} 
+              onClose={setOpen.bind(null, false)} 
+              onOpen={setOpen.bind(null, true)}>
             <Step placement="top-center">
                 <p>First step of tutorial placed on cenetr top of window</p>
             </Step>
@@ -30,7 +32,9 @@ const App = () => {
     const [isTourOpen, setIsTourOpen] = useState(false)
     return (
         <TourGuide isOpen={isTourOpen} setOpen={setIsTourOpen}/>
-        <button id="buttonId" onClick={setIsTourOpen.bind(null, ture)}> Start Tour </button>
+        <button id="buttonId" onClick={setIsTourOpen.bind(null, ture)}> 
+            Start Tour 
+        </button>
     )
 }
 
@@ -68,11 +72,15 @@ const Menu = () => {
 }
 
 const App = () => {
-    const [tour] = useTour("tourId"); // if you don't pass id you still can use tour.get method 
+    const [tour] = useTour("tourId"); 
     
     useEffect(()=>{
         const onNext = (current, next, lenght) => {
-            console.log(`current step is ${current} next will be ${next}, is ${lenght} steps`)
+            console.log(
+                `current step is ${current} 
+                 next will be ${next}, 
+                 is ${lenght} steps`
+            )
         }
         tour.on("next", onNext);
         return () => tour.un("next", onNext);
@@ -94,7 +102,7 @@ const App = () => {
 Tour.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // tour id used in useTourControl
     children: PropTypes.arrayOf(PropTypes.element),
-    className: PropTypes.string, // will add given class name to container and this className__content to content
+    className: PropTypes.string, //container className
     isOpen: PropTypes.bool,
     
     onBeforeClose: PropTypes.func, // before close if return falseable the cancel close
@@ -103,7 +111,7 @@ Tour.propTypes = {
     onOpen: PropTypes.func, // after open eg. from click in pin
     onAfterClose: PropTypes.func,// called when modal dialog is not visible
     onAfterOpen: PropTypes.func, // called when modal dialog is visible
-    onNext: PropTypes.func,// called before change step with : onNext(current, next, length): next: number
+    onNext: PropTypes.func,// called before change.: onNext(current, next, length): next: number
     onChange: PropTypes.func, // fired on every step change, - before scroll animation start
     onAfterScroll: PropTypes.func, // fired on every step change, - after scroll animation is finished
     onFinish: PropTypes.func, // called onClose if is on last step
@@ -141,7 +149,7 @@ Tour.propTypes = {
     ]),
     closeButtonClassName: PropTypes.string, 
     
-    controls: PropTypes.func,// controls({set, prev, next, current, length, close, lock}) : rect.element
+    controls: PropTypes.func,// controls({set, prev, next, current, length, close, lock}): rect.element
     // you can return your own step selector/paginator
     // which have set, prev, next function and current, length values to disposition
     
@@ -163,9 +171,11 @@ Tour.propTypes = {
     // probably you have to increase as well refresh timeout.
     // By default value is 801 ms after this time Modal check to 'see' that
     // it have enough space or it have to change place, this is important on mobile device.
-    scrollHiddenOverflow: PropTypes.bool, // by default true, if you pass false then if some content is overflowed
-    // container and it will be out of visible box then container will not be scrolled
-    scrollTarget: PropTypes.instanceOf(HTMLElement),//by default is window but you can set other element like body
+    scrollHiddenOverflow: PropTypes.bool, // by default true, if you pass false 
+    // then if some content is overflowed container and it will be out of visible
+    // box then container will not be scrolled
+    scrollTarget: PropTypes.instanceOf(HTMLElement),//by default is window
+    // but you can set other element like body
 }
 ```
 
@@ -173,9 +183,10 @@ Tour.propTypes = {
 ```javascript
 Step.propTypes = {
     className: PropTypes.string, // class name for step wrapper
-    selector: PropTypes.string, // css selector if is not provided then it will be located in relation to window
+    selector: PropTypes.string, // css selector 
+    // if is not provided then modal will be located in relation to window
     placement: PropTypes.oneOf([
-        "center", // only in relation to window - in relation to selector it will cover object !!!
+        "center",
         "top", "bottom", "right", "left",
         "top-right", "top-left",
         "bottom-right", "bottom-left"
@@ -183,7 +194,8 @@ Step.propTypes = {
     onBeforeShow: PropTypes.func, // called before show, you can prepare some action here
     onBeforeNext: PropTypes.func, // if return false block go to next step
     approve: PropTypes.oneOfType([
-        PropTypes.bool, // if you pass just 'approve=true' by default it will take click event
+        PropTypes.bool, // if you pass just 'approve=true' 
+        // it will take click event on 'selector' element
         PropTypes.shape({
             event: PropTypes.string,
             target: PropTypes.string,
@@ -212,10 +224,10 @@ Step.propTypes = {
         "top-right", "top-left",
         "bottom-right", "bottom-left"
     ]),
-    pinOffset: PropTypes.number, // offset from pin placement by default 0;
+    pinOffset: PropTypes.number, // offset from pin placement. default = 0;
     pinText: PropTypes.oneOfType([
-        PropTypes.bool, // if false then tool tip text is hidden, if true or unset then default text will be shown
-        PropTypes.string, // text over hover pin if you pass empty string then tool tip will disappear
+        PropTypes.bool, // false hide tooltip,  true and unset will shown it
+        PropTypes.string, // text over hover pin if you pass empty string then tool tip will be hidden
     ]),
 }
 ```
@@ -229,16 +241,16 @@ const _tour = tour.get(tourId);
 
 //or
 const [tour] = useTour(someId);
-const _tour2 = tour.get(otherId);
+const tour2 = tour.get(otherId);
 tour.open();
 tour.isOpen// true
-_tour2.isOpen // false
-_tour2.open()
-_tour2.isOpen()//ture
+tour2.isOpen // false
+tour2.open()
+tour2.isOpen()//ture
 
 ///------------------
 tour.open();
-tour.close(force: bool);//if the force is true, even if the pin mode is on a pin, it will not be displayed
+tour.close(force: bool);//if force is true, even if the pin mode is true, it will not be displayed
 tour.next();
 tour.prev();
 tour.set(index: number); // jump to step number index
@@ -266,7 +278,7 @@ tour.on("afterScroll", () => console.log("aftetr scrolling window to target posi
     - **onNext** // *before next is evalued - onNext(current, next, length): index|null*
     - **onBeforeShow** (on Step component) - *called before given step is displayed - this can be onlny added to Step component*
     - **onOpen** // called in during opening process
-    - **onChange** // after current displayed step is changed
+    - **onChange** // after current displayed step is changed onChange(index, Step.props)
     - **onAfterOpen** // called when step is visible all process of rendering are finished
 - Next step 
     - **onNext** // *you can return index of next step*
@@ -337,7 +349,9 @@ const TourGuide = () => {
                   current: "@"
               }}
               badge={(current, length) => current + " from " + length}
-              lastStepControls={close => <button onClick={close.bind(null, true)}>Congratulations</button>}
+              lastStepControls={close => (
+                    <button onClick={close.bind(null, true)}>Congratulations</button>
+              )}
               pin
               pinText="Clik heart to open tutorail agina"> 
             <Step placement={"center"}}>
@@ -361,13 +375,18 @@ const TourGuide = () => {
     const controls = useCallback(({prev, next, close, current, length})=>{
         return (
             <div className={"some-class__controls"}>
-                <button onClick={close.bind(null, true)} className={"btn btn--skip"}> skip </button>
+                <button onClick={close.bind(null, true)} 
+                        className={"btn btn--skip"}> 
+                            skip 
+                </button>
                 {current !== 0 &&
-                    <button onClick={prev} className={"btn btn--prev"}>
+                    <button onClick={prev} 
+                            className={"btn btn--prev"}>
                         Prev
                     </button>
                 }
-                <button onClick={next} className={"btn btn--next"}>
+                <button onClick={next} 
+                        className={"btn btn--next"}>
                     { ((current === length - 1) ? "Last" : "Next") + ` ${current + 1} / ${length}`}
                 </button>
             </div>
