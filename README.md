@@ -170,7 +170,7 @@ Tour.propTypes = {
 ```
 
 ## Step component
-```
+```javascript
 Step.propTypes = {
     className: PropTypes.string, // class name for step wrapper
     selector: PropTypes.string, // css selector if is not provided then it will be located in relation to window
