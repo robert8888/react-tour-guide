@@ -246,7 +246,7 @@ tour.open();
 tour.isOpen// true
 tour2.isOpen // false
 tour2.open()
-tour2.isOpen()//ture
+tour2.isOpen //ture
 
 ///------------------
 tour.open();
