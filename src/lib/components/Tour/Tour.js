@@ -564,12 +564,7 @@ const Tour = (
          if(!approveTarget) return;
          const approveCallback = (event) => {
              if(approve.callback){
-                 if(approve.callback instanceof Promise){
-                     approve.callback.then(()=>{
-                         unlock();
-                         next();
-                     })
-                 } else if(!!approve.callback(event)){
+                 if(!!approve.callback(event)){
                      unlock();
                      next();
                  }
@@ -579,6 +574,12 @@ const Tour = (
              }
          }
          approveTarget.addEventListener(approveEvent, approveCallback);
+         if(approve.promise){
+             approve.promise.then(() => {
+                 unlock();
+                 next();
+             })
+         }
          return () => {
              approveTarget.removeEventListener(approveEvent, approveCallback);
          }

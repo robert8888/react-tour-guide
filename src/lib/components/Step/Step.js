@@ -16,8 +16,8 @@ const propTypes = {
         PropTypes.shape({
             event: PropTypes.string,
             target: PropTypes.string,
-            callback: PropTypes.oneOfType([ PropTypes.func, PropTypes.instanceOf(Promise)]),
-            // if callback return true, or promise is resolved then go to next step
+            callback:  PropTypes.func, // if callback return true then is approved
+            promise: PropTypes.instanceOf(Promise), // if promise is resolved then is approved
             lock: PropTypes.bool, // lock go next step until task is not done
         })
     ]),
