@@ -35,10 +35,11 @@ const GuideTourVertical = ({bus}) => {
                       pinOffset={100}
                       pinText={true}
                       approve={{
+                          lock: true,
                           promise: () => new Promise((res, rej) => {
                               setTimeout(()=>{
                                   res();
-                              }, 1000)
+                              }, 2000)
                           })
                       }}
                       className={"first step"}>

@@ -306,6 +306,7 @@ const Tour = (
      * unlock step -> add it index to unlocked list
      */
     const unlock = useCallback(()=>{
+        if(lock.current === undefined || lock.current === null) return;
         setUnlocked( unlocked => [...unlocked, lock.current]);
         lock.current = locks[locks.indexOf(lock.current) + 1];
     }, [lock, locks, setUnlocked])
