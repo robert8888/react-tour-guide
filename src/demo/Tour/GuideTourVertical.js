@@ -34,6 +34,13 @@ const GuideTourVertical = ({bus}) => {
                       pinPlacement={"left"}
                       pinOffset={100}
                       pinText={true}
+                      approve={{
+                          promise: () => new Promise((res, rej) => {
+                              setTimeout(()=>{
+                                  res();
+                              }, 1000)
+                          })
+                      }}
                       className={"first step"}>
                      <p>
                          This library creates interactive <br/>

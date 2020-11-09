@@ -208,7 +208,7 @@ Step.propTypes = {
             event: PropTypes.string,
             target: PropTypes.string,
             callback:  PropTypes.func, // if callback return true then is approved
-            promise: PropTypes.instanceOf(Promise), // if promise is resolved then is approved
+            promise: PropTypes.func, // a function which have to return promise, if promise is resolved then is approved
             lock: PropTypes.bool, // lock go next step until task is not done
         })
     ]),

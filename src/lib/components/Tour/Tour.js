@@ -575,13 +575,16 @@ const Tour = (
                  next();
              }
          }
+        if(approve.promise && typeof approve.promise  === "function"){
+            const promise = approve.promise();
+            if(promise instanceof Promise){
+                promise.then(() => {
+                    unlock();
+                    next();
+                })
+            }
+        }
          approveTarget.addEventListener(approveEvent, approveCallback);
-         if(approve.promise){
-             approve.promise.then(() => {
-                 unlock();
-                 next();
-             })
-         }
          return () => {
              approveTarget.removeEventListener(approveEvent, approveCallback);
          }
