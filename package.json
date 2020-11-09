@@ -21,7 +21,7 @@
     "tooltips",
     "rtg"
   ],
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
