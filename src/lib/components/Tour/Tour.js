@@ -371,7 +371,7 @@ const Tour = (
             pinText: firstOf([_step.props.pinText, pinText])
         });
     }, [setStep, getStep, step, startFrom, tourLength, lock, onNext, onLock,
-        displayPin, setPin, pinOffset, pinText, id , controlContext, currentContent])
+        displayPin, setPin, pinOffset, pinText, id , controlContext])
 
     const next = useCallback(() => {
         setCurrentStep((step && (step.index + 1)) || 0);
