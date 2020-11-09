@@ -64,6 +64,8 @@ const propTypes = {
     ]),
     closeButtonClassName: PropTypes.string, //
 
+    controller: PropTypes.func,// export controlling functions : ({set, pre, next})
+
     controls: PropTypes.func,// controls({set, prev, next, current, length, close, lock}) : rect.element
     // you can return your own step selector/paginator which have set, prev, next function and
     // current, length values to disposition
@@ -131,6 +133,8 @@ const Tour = (
         closeButton,
         closeButtonContent,
         closeButtonClassName,
+
+        controller,
 
         controls,
         controlButtonsContent,
@@ -446,6 +450,18 @@ const Tour = (
         exportControlToContext();
     },[controlContext, exportControlToContext])
 
+
+    /**
+     * export controlling functions
+     */
+    useEffect(()=>{
+        if(!controller) return;
+        controller({
+            prev,
+            next,
+            set,
+        })
+    }, [prev, next, set, controller])
 
     /**
      * if current step is change then fire up scroll

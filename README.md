@@ -153,8 +153,10 @@ Tour.propTypes = {
         PropTypes.string, // text content of button
         PropTypes.element, // react.element as content of button eg. svg element like fontawesome icon
     ]),
-    closeButtonClassName: PropTypes.string, 
-    
+    closeButtonClassName: PropTypes.string,
+
+    controller: PropTypes.func,// export controlling functions : ({set, pre, next})
+  
     controls: PropTypes.func,// controls({set, prev, next, current, length, close, lock}): rect.element
     // you can return your own step selector/paginator
     // which have set, prev, next function and current, length values to disposition
