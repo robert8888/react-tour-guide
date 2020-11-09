@@ -207,7 +207,8 @@ Step.propTypes = {
         PropTypes.shape({
             event: PropTypes.string,
             target: PropTypes.string,
-            callback: PropTypes.func, // if return true then go to next step
+            callback: PropTypes.oneOfType([ PropTypes.func, PropTypes.instanceOf(Promise)]),
+            // if callback return true, or promise is resolved then go to next step
             lock: PropTypes.bool, // lock go next step until task is not done
         })
     ]),

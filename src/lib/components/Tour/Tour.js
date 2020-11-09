@@ -369,7 +369,7 @@ const Tour = (
             pinText: firstOf([_step.props.pinText, pinText])
         });
     }, [setStep, getStep, step, startFrom, tourLength, lock, onNext, onLock,
-        displayPin, setPin, pinOffset, pinText, id , controlContext])
+        displayPin, setPin, pinOffset, pinText, id , controlContext, currentContent])
 
     const next = useCallback(() => {
         setCurrentStep((step && (step.index + 1)) || 0);
@@ -564,7 +564,12 @@ const Tour = (
          if(!approveTarget) return;
          const approveCallback = (event) => {
              if(approve.callback){
-                 if(!!approve.callback(event)){
+                 if(approve.callback instanceof Promise){
+                     approve.callback.then(()=>{
+                         unlock();
+                         next();
+                     })
+                 } else if(!!approve.callback(event)){
                      unlock();
                      next();
                  }
