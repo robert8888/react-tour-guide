@@ -330,7 +330,7 @@ const Tour = (
         if(lock.current !== null && lock.current !== undefined){
             if(index > lock.current) {
                 onLock && typeof onLock === "function" && onLock(lock.current);
-                if(currentContent !== null){
+                if(controlContext !== null){
                     controlContext.fire(id, "lock", lock.current)
                 }
                 return;
