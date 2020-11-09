@@ -318,7 +318,7 @@ const Tour = (
         if(onNext && typeof onNext === "function"){
             index = onNext(((step && step.index) || startFrom || 0) , index, tourLength);
         }
-        if(controlContext){
+        if(controlContext !== null){
             const nextIndex = controlContext.fire(id, "next", ((step && step.index) || startFrom || 0) , index, tourLength)[0]
             if(nextIndex !== undefined){
                 index = nextIndex;
@@ -330,7 +330,9 @@ const Tour = (
         if(lock.current !== null && lock.current !== undefined){
             if(index > lock.current) {
                 onLock && typeof onLock === "function" && onLock(lock.current);
-                currentContent && controlContext.fire(id, "lock", lock.current)
+                if(currentContent !== null){
+                    controlContext.fire(id, "lock", lock.current)
+                }
                 return;
             }
         }
