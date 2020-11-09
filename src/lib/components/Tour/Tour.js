@@ -559,23 +559,9 @@ const Tour = (
      * @param lock: bool - if is true then until task is not done user can't go to next steps
      */
     useEffect(function applyApprove(){
-         if(!step || !isOpen) return;
-         const approve = step.props.approve;
-         if(!approve) return;
-         const approveEvent = approve.event || 'click';
-         const approveTarget = (approve.target && document.querySelector(approve.target)) || step.target;
-         if(!approveTarget) return;
-         const approveCallback = (event) => {
-             if(approve.callback){
-                 if(!!approve.callback(event)){
-                     unlock();
-                     next();
-                 }
-             } else {
-                 unlock();
-                 next();
-             }
-         }
+        if(!step || !isOpen) return;
+        const approve = step.props.approve;
+        if(!approve) return;
         if(approve.promise && typeof approve.promise  === "function"){
             const promise = approve.promise();
             if(promise instanceof Promise){
@@ -585,10 +571,25 @@ const Tour = (
                 })
             }
         }
-         approveTarget.addEventListener(approveEvent, approveCallback);
-         return () => {
-             approveTarget.removeEventListener(approveEvent, approveCallback);
-         }
+        if(approve.event === "none") return;
+        const approveEvent = approve.event || 'click';
+        const approveTarget = (approve.target && document.querySelector(approve.target)) || step.target;
+        if(!approveTarget) return;
+        const approveCallback = (event) => {
+             if(approve.callback){
+                 if(!!approve.callback(event)){
+                     unlock();
+                     next();
+                 }
+             } else {
+                 unlock();
+                 next();
+             }
+        }
+        approveTarget.addEventListener(approveEvent, approveCallback);
+        return () => {
+          approveTarget.removeEventListener(approveEvent, approveCallback);
+        }
     },[step, next, isOpen, unlock])
 
     /**

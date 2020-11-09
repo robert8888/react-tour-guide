@@ -14,7 +14,7 @@ const propTypes = {
     approve: PropTypes.oneOfType([
         PropTypes.bool, // if you pass just 'approve=true' by default it will take click event
         PropTypes.shape({
-            event: PropTypes.string,
+            event: PropTypes.string, // if is set to 'none' then only promise option works
             target: PropTypes.string,
             callback:  PropTypes.func, // if callback return true then is approved
             promise: PropTypes.func, // a function which have to return promise, if promise is resolved then is approved
