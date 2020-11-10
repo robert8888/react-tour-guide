@@ -471,9 +471,11 @@ const Tour = (
      */
     useLayoutEffect(function scroll() {
         if(!step || (step && step.props.scroll === false)) return;
+        step.props.onShow && step.props.onShow();
         if(!step.target){
             scrollTo({top: 0, left: 0}, () => {
                 onAfterScroll && onAfterScroll(step.index)
+                step.props.onAfterScroll && step.props.onAfterScroll();
                 controlContext && controlContext.fire(id, "afterScroll", step.index)
             });
             return;

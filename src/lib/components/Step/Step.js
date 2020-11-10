@@ -10,6 +10,8 @@ const propTypes = {
         "bottom-right", "bottom-left"
     ]),
     onBeforeShow: PropTypes.func, // called before show, you can prepare some action here
+    onShow: PropTypes.func, // called after showing step but before scroll
+    onAfterScroll: PropTypes.func, /// called after scrolling window to step position
     onBeforeNext: PropTypes.func, // if return false block go to next step
     approve: PropTypes.oneOfType([
         PropTypes.bool, // if you pass just 'approve=true' by default it will take click event
