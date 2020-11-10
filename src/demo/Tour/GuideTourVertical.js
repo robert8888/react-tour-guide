@@ -34,6 +34,7 @@ const GuideTourVertical = ({bus}) => {
                       pinPlacement={"left"}
                       pinOffset={100}
                       pinText={true}
+                      onShow={()=>console.log("on Show hook")}
                       approve={{
                           lock: true,
                           promise: () => new Promise((res, rej) => {
