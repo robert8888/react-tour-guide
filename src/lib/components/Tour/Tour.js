@@ -578,7 +578,12 @@ const Tour = (
         const approveTarget = (approve.target && document.querySelector(approve.target)) || step.target;
         if(!approveTarget) return;
         const approveCallback = (event) => {
-             if(approve.callback){
+             if(approve.callback instanceof Promise){
+                 approve.callback.then(() =>{
+                     unlock();
+                     next();
+                 })
+             } else if(approve.callback){
                  if(!!approve.callback(event)){
                      unlock();
                      next();

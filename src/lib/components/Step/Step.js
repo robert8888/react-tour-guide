@@ -17,8 +17,10 @@ const propTypes = {
         PropTypes.bool, // if you pass just 'approve=true' by default it will take click event
         PropTypes.shape({
             event: PropTypes.string, // if is set to 'none' then only promise option works
-            target: PropTypes.string,
-            callback:  PropTypes.func, // if callback return true then is approved
+            target: PropTypes.string, // by default step selector.
+            callback: PropTypes.oneOfType([PropTypes.func, PropTypes.instanceOf(Promise)]),
+            // if event will be fired on target then callback will be called if return true then is approved
+            // if callback is a promise then step will be wait until promise will be resolved.
             promise: PropTypes.func, // a function which have to return promise, if promise is resolved then is approved
             lock: PropTypes.bool, // lock go next step until task is not done
         })
