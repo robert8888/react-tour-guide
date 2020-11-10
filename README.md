@@ -209,9 +209,9 @@ Step.propTypes = {
         PropTypes.shape({
           event: PropTypes.string, // if is set to 'none' then only promise option works
           target: PropTypes.string, // by default step selector.
-          callback: PropTypes.oneOfType([PropTypes.func, PropTypes.instanceOf(Promise)]),
+          callback: PropTypes.func,
           // if event will be fired on target then callback will be called if return true then is approved
-          // if callback is a promise then step will be wait until promise will be resolved. 
+          delay: PropTypes.number, // delay from callback or pure event approve to go next slide
           promise: PropTypes.func, // a function which have to return promise, if promise is resolved then is approved
           lock: PropTypes.bool, // lock go next step until task is not done
         })
