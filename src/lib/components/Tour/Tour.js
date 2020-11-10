@@ -578,24 +578,19 @@ const Tour = (
         const approveTarget = (approve.target && document.querySelector(approve.target)) || step.target;
         if(!approveTarget) return;
         const approveCallback = (event) => {
-            const goNext = () => {
-                const go = () =>{
-                    unlock();
-                    next();
-                }
-                if(approve.delay !== undefined){
-                    setTimeout(go, approve.delay)
-                } else{
-                    go();
-                }
-            }
-
-            if(approve.callback){
+             if(approve.callback instanceof Promise){
+                 approve.callback.then(() =>{
+                     unlock();
+                     next();
+                 })
+             } else if(approve.callback){
                  if(!!approve.callback(event)){
-                     goNext();
+                     unlock();
+                     next();
                  }
              } else {
-                 goNext()
+                 unlock();
+                 next();
              }
         }
         approveTarget.addEventListener(approveEvent, approveCallback);

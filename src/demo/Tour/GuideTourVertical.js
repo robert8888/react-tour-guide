@@ -16,8 +16,6 @@ const GuideTourVertical = ({bus}) => {
         bus.start = setOpen.bind(null, true)
     }, [bus, start, tourController])
 
-
-
     return (
         <div>
             <Tour isOpen={isOpen}
@@ -37,6 +35,14 @@ const GuideTourVertical = ({bus}) => {
                       pinOffset={100}
                       pinText={true}
                       onShow={()=>console.log("on Show hook")}
+                      approve={{
+                          lock: true,
+                          promise: () => new Promise((res, rej) => {
+                              setTimeout(()=>{
+                                  res();
+                              }, 2000)
+                          })
+                      }}
                       className={"first step"}>
                      <p>
                          This library creates interactive <br/>
@@ -54,9 +60,6 @@ const GuideTourVertical = ({bus}) => {
                 </Step>
                 <Step selector={"[data-rtg='completed']"}
                       placement={"top-left"}
-                      approve={{
-                          delay: 1000,
-                      }}
                       className={"step--dark"}>
                     <p>
                         This one have custom
