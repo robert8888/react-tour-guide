@@ -70,6 +70,7 @@ const GuideTourVertical = ({bus}) => {
                 <Step selector={"[data-rtg='newsletter']"}
                       approve={{
                           event:"click",
+                          delay: 2000,
                           target:"#btnSubmitEmail",
                           callback: (event) => document.getElementById("inputEmail").value.match(/\w+@\w+\.\w+/)
                       }}
