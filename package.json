@@ -7,7 +7,8 @@
     "url": "https://github.com/robert8888/react-tour-guide"
   },
   "files": [
-    "build/*"
+    "build/index.js",
+    "build/index.css"
   ],
   "keywords": [
     "react",
@@ -24,7 +25,7 @@
     "tooltips",
     "rtg"
   ],
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
