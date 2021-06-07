@@ -101,21 +101,27 @@ module.exports = function(webpackEnv) {
         options: {
           // Necessary for external CSS imports to work
           // https://github.com/facebook/create-react-app/issues/2677
-          ident: 'postcss',
-          plugins: () => [
-            require('postcss-flexbugs-fixes'),
-            require('postcss-preset-env')({
-              autoprefixer: {
-                flexbox: 'no-2009',
-              },
-              stage: 3,
-            }),
-            // Adds PostCSS Normalize as the reset css with default options,
-            // so that it honors browserslist config in package.json
-            // which in turn let's users customize the target behavior as per their needs.
-            postcssNormalize(),
-          ],
-          sourceMap: (isEnvDemo || isEnvProduction) && shouldUseSourceMap,  // CRL
+
+          postcssOptions:{
+            ident: 'postcss',
+            plugins: [
+              // require('postcss-import'),
+              require('postcss-flexbugs-fixes'),
+              require('postcss-preset-env')({
+                autoprefixer: {
+                  flexbox: 'no-2009',
+                },
+                stage: 3,
+              }),
+              // Adds PostCSS Normalize as the reset css with default options,
+              // so that it honors browserslist config in package.json
+              // which in turn let's users customize the target behavior as per their needs.
+              postcssNormalize(),
+            ],
+            sourceMap: true//(isEnvDemo || isEnvProduction) && shouldUseSourceMap,  // CRL
+          },
+
+
         },
       },
     ].filter(Boolean);
@@ -124,13 +130,14 @@ module.exports = function(webpackEnv) {
         {
           loader: require.resolve('resolve-url-loader'),
           options: {
-            sourceMap: (isEnvDemo || isEnvProduction) && shouldUseSourceMap,  // CRL
+            sourceMap: true,//(isEnvDemo || isEnvProduction) && shouldUseSourceMap,  // CRL
+            //join: (uri, base) => path.join('../..', base, uri)
           },
         },
         {
           loader: require.resolve(preProcessor),
           options: {
-            sourceMap: (isEnvDemo || isEnvProduction) && shouldUseSourceMap,  // CRL
+            sourceMap: true//(isEnvDemo || isEnvProduction) && shouldUseSourceMap,  // CRL
           },
         }
       );
@@ -258,8 +265,8 @@ module.exports = function(webpackEnv) {
           // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
           parallel: !isWsl,
           // Enable file caching
-          cache: true,
-          sourceMap: shouldUseSourceMap,
+          // cache: true,
+          // sourceMap: shouldUseSourceMap,
         }),
         // This is only used in production mode
         new OptimizeCSSAssetsPlugin({
@@ -282,7 +289,7 @@ module.exports = function(webpackEnv) {
       // https://twitter.com/wSokra/status/969633336732905474
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
       splitChunks: {
-        chunks: 'all',
+        // chunks: 'all',
         name: false,
       },
       // Keep the runtime chunk separated to enable long term caching
@@ -615,10 +622,15 @@ module.exports = function(webpackEnv) {
             manifest[file.name] = file.path;
             return manifest;
           }, seed);
-          const entrypointFiles = entrypoints.main.filter(
-            fileName => !fileName.endsWith('.map')
+          const entrypointFiles = Object.entries(entrypoints).reduce(
+              (acc, [name, paths]) => {
+                acc[name] = paths.filter(
+                    (fileName) => !fileName.endsWith(".map")
+                );
+                return acc;
+              },
+              {}
           );
-
           return {
             files: manifestFiles,
             entrypoints: entrypointFiles,
