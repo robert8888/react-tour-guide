@@ -24,7 +24,7 @@
     "tooltips",
     "rtg"
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "build/index.js",
   "scripts": {
     "start": "node scripts/start.js",
@@ -33,7 +33,7 @@
     "test": "node scripts/test.js"
   },
   "engines": {
-    "node": ">=15<16"
+    "node": ">=15"
   },
   "license": "MIT",
   "dependencies": {},
