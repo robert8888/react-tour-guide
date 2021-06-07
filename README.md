@@ -2,6 +2,7 @@
 The idea for this library was to create a trip component library that is created in react way rather than json config, while still keeping the style in a separate css file built in such way that they can be easily overwritten and customized.
 
 ### [Demo page](https://robert8888.github.io/rtg-demo)
+##### Check example demo tour on github repo ./src/demo/Tour
 
 # TLTR
 ```
