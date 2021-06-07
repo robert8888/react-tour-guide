@@ -10,7 +10,7 @@ npm install react-rtg
 ```
 #### Basic usage
 ```javascript
-import "./../../node_modules/react_rtg/build/index.css"
+import "react-rtg/build/index.css"; // import stylesheet - you can do it in sass files as well
 import React, {useState} from "react";
 import {Tour, Step} from "react-rtg";
 
@@ -44,7 +44,7 @@ const App = () => {
 #### with context
 
 ```javascript
-import "./../../node_modules/react_rtg/build/index.css"
+import "react-rtg/build/index.css"; // import stylesheet - you can do it in sass files as well
 import React, {useState} from "react";
 import {Tour, Step, TourRoot, useTour} from "react-rtg";
 
