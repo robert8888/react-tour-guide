@@ -12,4 +12,20 @@
   span{
     font-size: 0.9rem;
   }
+  &--waiting{
+    animation: blinking;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-direction: reverse;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes blinking {
+    from{
+      background: var(--primary-color)
+    }
+    to{
+      background: var(--wating-color);
+    }
+  }
 }

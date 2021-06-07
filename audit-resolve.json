@@ -1,0 +1,222 @@
+{
+  "decisions": {
+    "1426|terser-webpack-plugin>serialize-javascript": {
+      "decision": "fix",
+      "madeAt": 1622840928280
+    },
+    "1548|terser-webpack-plugin>serialize-javascript": {
+      "decision": "fix",
+      "madeAt": 1622840928280
+    },
+    "1573|resolve-url-loader>adjust-sourcemap-loader>object-path": {
+      "decision": "fix",
+      "madeAt": 1622840975414
+    },
+    "1693|css-loader>icss-utils>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841033237
+    },
+    "1693|css-loader>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841033237
+    },
+    "1693|css-loader>postcss-modules-extract-imports>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841033237
+    },
+    "1693|css-loader>postcss-modules-local-by-default>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841033237
+    },
+    "1693|css-loader>postcss-modules-scope>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841033237
+    },
+    "1693|css-loader>postcss-modules-values>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841033237
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>css-declaration-sorter>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092367
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>cssnano-util-raw-cache>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-colormin>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-convert-values>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-discard-comments>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-discard-duplicates>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-discard-empty>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-discard-overridden>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-merge-longhand>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-merge-longhand>stylehacks>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-merge-rules>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-minify-font-values>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-minify-gradients>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-minify-params>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-minify-selectors>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-charset>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-display-values>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-positions>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-repeat-style>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-string>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-timing-functions>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-unicode>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-url>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-normalize-whitespace>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-ordered-values>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-reduce-initial>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-reduce-transforms>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-svgo>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-unique-selectors>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|optimize-css-assets-webpack-plugin>cssnano>cssnano-preset-default>postcss-calc>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841092368
+    },
+    "1693|postcss-flexbugs-fixes>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841152030
+    },
+    "1693|postcss-loader>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841197857
+    },
+    "1693|postcss-normalize>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841237554
+    },
+    "1693|postcss-normalize>postcss-browser-comments>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841237554
+    },
+    "1693|postcss-safe-parser>postcss": {
+      "decision": "fix",
+      "madeAt": 1622841287168
+    },
+    "1748|jest>jest-cli>@jest/core>@jest/reporters>jest-runtime>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1748|jest>jest-cli>@jest/core>jest-runner>jest-jasmine2>jest-runtime>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1748|jest>jest-cli>@jest/core>jest-runner>jest-runtime>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1748|jest>jest-cli>@jest/core>jest-runtime>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1748|jest>jest-cli>@jest/core>jest-runner>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1748|jest>jest-cli>@jest/core>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1748|jest>jest-cli>jest-config>jest-environment-jsdom>jsdom>ws": {
+      "decision": "fix",
+      "madeAt": 1622841661773
+    },
+    "1179|eslint-loader>loader-fs-cache>find-cache-dir>mkdirp>minimist": {
+      "decision": "fix",
+      "madeAt": 1622842211203
+    }
+  },
+  "rules": {},
+  "version": 1
+}

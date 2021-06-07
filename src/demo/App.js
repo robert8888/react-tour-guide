@@ -24,22 +24,22 @@ const App = () => {
     const horizontal = useMemo(()=>{
         return (
             <>
-                <TourContext>
-                    <GuideTourHorizontal />
-                    <PageHorizontal  />
-                </TourContext>
+                <GuideTourHorizontal />
+                <PageHorizontal  />
             </>
         )
     }, [])
 
     return (
         <div>
-            <Router>
-                <Switch>
-                    <Route path={"/horizontal"} exact component={() => horizontal}/>
-                    <Route path="/" component={() => vertical}/>
-                </Switch>
-            </Router>
+            <TourContext>
+                <Router>
+                    <Switch>
+                        <Route path={"/horizontal"} exact component={() => horizontal}/>
+                        <Route path="/" component={() => vertical}/>
+                    </Switch>
+                </Router>
+            </TourContext>
 
         </div>
     );

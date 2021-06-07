@@ -37,7 +37,7 @@ const Header = () => {
                 <ul>
                     <li className={"nav__item-1"}><Link to={"/horizontal"}>Second example</Link></li>
                     <li className={"nav__item-2"}><a href={"#registration"}>Registration</a></li>
-                    <li className={"nav__item-3"}><a href={"/"}>Want to know more ?</a></li>
+                    <li className={"nav__item-3"}><a href={"/"} onClick={e => e.preventDefault()}>Want to know more ?</a></li>
                     <li className={"nav__item-4"}><a href={"#installation"}>Installation</a></li>
                 </ul>
             </nav>

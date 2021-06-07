@@ -21,18 +21,21 @@ const propTypes = {
     children: PropTypes.arrayOf(PropTypes.element),
     className: PropTypes.string, // will add given class name to container and this className__content to content
     isOpen: PropTypes.bool,
-    onBeforeClose: PropTypes.func, // before close if return falseable the cancel close
-    onBeforeOpen: PropTypes.func, // before open if return falseable then cancel open
+    initialContent: PropTypes.func, // function returning initial content - it is shown if wait is present on first step
+
+    onBeforeClose: PropTypes.func, // before close if return falsable the cancel close
+    onBeforeOpen: PropTypes.func, // before open if return falsable then cancel open
     onClose: PropTypes.func, // after close
     onOpen: PropTypes.func, // after open eg. from click in pin
     onAfterClose: PropTypes.func,// called when modal dialog is not visible
     onAfterOpen: PropTypes.func, // called when modal dialog is visible
-    onNext: PropTypes.func,// called before change step with : onNext(current, next, length): next: number
+    onNext: PropTypes.func,// called before change step with : onNext(current, next, length): next: number or next step id
     onChange: PropTypes.func, // fired on every step change, - before scroll animation start
     onAfterScroll: PropTypes.func, // fired on every step change, - after scroll animation is finished
     onFinish: PropTypes.func, // called onClose if is on last step
     onLock: PropTypes.func, // called when user try to navigate to lock steps
-    startAt: PropTypes.number,
+    onWait: PropTypes.func, // called when step is waiting to show - with true when waits and false when is finish
+    startAt: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // step index or string id
     closeOnBackdrop: PropTypes.bool, // if true then click on the backdrop mask will close tour
     offset: PropTypes.number, // offset of modal from target default 30
     offsetX: PropTypes.number, // by default not set, so it has general default 30
@@ -91,7 +94,6 @@ const propTypes = {
     scrollHiddenOverflow: PropTypes.bool, // by default true, if you pass false then if some content is overflowed
     // container and it will be out of visible box then container will not be scrolled
     scrollTarget: PropTypes.instanceOf(HTMLElement),//by default is window but you can set other element like body
-
 }
 
 const Tour = (
@@ -100,7 +102,7 @@ const Tour = (
         children,
         className,
         isOpen,
-
+        initialContent,
 
         onBeforeOpen,
         onOpen,
@@ -113,6 +115,7 @@ const Tour = (
         onAfterScroll,
         onFinish,
         onLock,
+        onWait,
 
         startAt,
         closeOnBackdrop,
@@ -148,8 +151,14 @@ const Tour = (
 ) => {
     const controlContext = useContext(TourContext);
     const [step, setStep, _step] = useStateRef(null);
-    const [startFrom, setStartFrom] = useState(startAt);
+    const [startFrom, setStartFrom] = useState(
+        typeof startAt === "string"
+        ? (children instanceof Array ? children : [children]).findIndex(step => step.props.id === startAt)
+        : startAt
+    );
     const [visible, setVisible, _visible, setOnVisibleChangeCallback] = useStateRefCallback(false);
+    const [isWaiting, setIsWaiting] = useState(false);
+    const waitsMap = useRef({})
     const [pin, setPin] = useState({
         visible: false,
         target: null,
@@ -215,13 +224,29 @@ const Tour = (
     },[children])
 
     /**
+     * @param {id: string}
+     * @type {function(*): number}
+     */
+    const getStepIndex = useCallback(id => {
+        return [...getSteps()].findIndex(step => step.props.id === id)
+    }, [getSteps])
+
+    /**
      * get current modal dialog content - (current step content)
      * function() : react.component
      */
     const currentContent = useMemo(() => {
-        if (!step) return null;
-        return getStep(step.index)
-    }, [getStep, step]);
+        if(!step)
+            return typeof initialContent === "function"
+                ? initialContent() : null;
+
+        const _step = getStep(step.index)
+
+        return _step.props.content && typeof _step.props.content === "function"
+            ? _step.props.content(isWaiting)
+            : _step;
+
+    }, [getStep, step, isWaiting, initialContent]);
 
     /**
      * get backdrop horizontal offset - first no null and no undefined of values
@@ -311,68 +336,114 @@ const Tour = (
         lock.current = locks[locks.indexOf(lock.current) + 1];
     }, [lock, locks, setUnlocked])
 
+    /**
+     * @param {index: number} - step index
+     * @param {state: bool} - wait state
+     * @param {step: Step} - step component
+     * @type {(function(*=, *=, *): void)|*}
+     */
+    const updateIsWaiting = useCallback((index, state, step) => {
+        onWait && onWait({index, state, id: step.props.id})
+        step.props.onWait && step.props.onWait(state)
+        controlContext.fire(id, 'wait', {index, state, id: step.props.id})
+        setIsWaiting(state)
+    }, [id, setIsWaiting, onWait, controlContext])
 
     /**
+     * @param {index: number} - index of next step
      * set current step - configuration of current step
      */
     const setCurrentStep = useCallback(index => {
         if(onNext && typeof onNext === "function"){
-            index = onNext(((step && step.index) || startFrom || 0) , index, tourLength);
+            index = onNext(((step && step.index) || startFrom || 0) , index, tourLength, step.props.id) ?? index;
         }
         if(controlContext !== null){
-            const nextIndex = controlContext.fire(id, "next", ((step && step.index) || startFrom || 0) , index, tourLength)[0]
-            if(nextIndex !== undefined){
-                index = nextIndex;
-            }
+            index = controlContext.fire(
+                id,
+                "next",
+                ((step && step.index) || startFrom || 0) ,
+                index,
+                tourLength,
+                ((step && step.props.id) || null)
+            )[0] ?? index
         }
+
+        if(typeof index === "string")
+            index = getStepIndex(index);
 
         index = Math.min(tourLength - 1, Math.max(0, index))
 
-        if(lock.current !== null && lock.current !== undefined){
-            if(index > lock.current) {
-                onLock && typeof onLock === "function" && onLock(lock.current);
-                if(controlContext !== null){
-                    controlContext.fire(id, "lock", lock.current)
-                }
-                return;
+        if(lock.current !== null && lock.current !== undefined && index > lock.current){
+            onLock && typeof onLock === "function" && onLock(lock.current);
+            if(controlContext !== null){
+                controlContext.fire(id, "lock", lock.current)
             }
+            return;
         }
 
         const _step = getStep(index);
-        _step.props.onBeforeShow && _step.props.onBeforeShow();
 
-        const target = document.querySelector(_step.props.selector);
-
-        setStep( current => {
-            if(current && current.props.onBeforeNext){
-                 if(current.props.onBeforeNext() === false){
-                     return current;
-                 }
+        let waitPromise = null;
+        const wait = _step.props.wait || waitsMap.current[index];
+        if (wait !== undefined){
+            if(typeof wait === "number"){
+                waitPromise = new Promise((res) => setTimeout(() => res(), Math.abs(wait)))
+            } else if(typeof wait === "function"){
+                const promise = wait()
+                if(promise instanceof Promise){
+                    waitPromise = promise
+                }
             }
-            return {
-                index,
-                target,
-                props: _step.props,
-            }
-        })
+        }
 
-        displayPin && setPin({
-            visible: false,
-            target: target,
-            placement: firstOf([
-                _step.props.pinPlacement,
-                _step.props.placement,
-                "center"]
-            ),
-            offset : firstOf([
-                _step.props.pinOffset,
-                pinOffset,
-                0
-            ]),
-            pinText: firstOf([_step.props.pinText, pinText])
-        });
-    }, [setStep, getStep, step, startFrom, tourLength, lock, onNext, onLock,
-        displayPin, setPin, pinOffset, pinText, id , controlContext])
+        let wasWaiting = false;
+        const go = () => {
+            wasWaiting && updateIsWaiting(index, false, _step)
+
+            _step.props.onBeforeShow && _step.props.onBeforeShow();
+
+            const target = document.querySelector(_step.props.selector);
+
+            setStep( current => {
+                if(current && current.props.onBeforeNext){
+                    if(current.props.onBeforeNext() === false){
+                        return current;
+                    }
+                }
+                return {
+                    index,
+                    target,
+                    props: _step.props,
+                }
+            })
+
+            displayPin && setPin({
+                visible: false,
+                target: target,
+                placement: firstOf([
+                    _step.props.pinPlacement,
+                    _step.props.placement,
+                    "center"]
+                ),
+                offset : firstOf([
+                    _step.props.pinOffset,
+                    pinOffset,
+                    0
+                ]),
+                pinText: firstOf([_step.props.pinText, pinText])
+            });
+        }
+        if(waitPromise){
+            updateIsWaiting(index, true, _step);
+            wasWaiting = true;
+            waitPromise.then(() => {
+                go();
+            })
+        } else
+            go();
+
+    }, [setStep, getStep, getStepIndex, step, startFrom, tourLength, lock, updateIsWaiting, onNext, onLock,
+        displayPin, setPin, pinOffset, pinText, id , controlContext, waitsMap])
 
     const next = useCallback(() => {
         setCurrentStep((step && (step.index + 1)) || 0);
@@ -412,7 +483,7 @@ const Tour = (
              onFinish, onBeforeClose, onClose,  displayPin, tourLength,
              id, controlContext])
 
-    const open = useCallback(()=> {
+    const open = useCallback((reopen = false)=> {
         if(_visible.current) return;
         if(onBeforeOpen && onBeforeOpen() === false){
             return;
@@ -424,13 +495,17 @@ const Tour = (
             const start = startFrom || 0;
             set(start);
         }
-        onOpen && onOpen();
-        controlContext && controlContext.fire(id, "open");
+        onOpen && onOpen({reopen});
+        controlContext && controlContext.fire(id, "open", {reopen});
 
         setVisible(true);
         displayPin && setPin( current => ({...current, visible: false}))
     }, [onOpen, onBeforeOpen, startFrom, set, setVisible, _visible, displayPin, setPin, step, id, controlContext])
 
+    const setWait = useCallback(({index, id, wait}) => {
+        index = id ? getStepIndex(id) : index;
+        waitsMap.current[index] = wait
+    }, [waitsMap, getStepIndex])
 
     /**
      * exporting control function to current context
@@ -442,11 +517,12 @@ const Tour = (
             prev,
             next,
             set,
+            setWait,
             get step() { return _step.current},
             get isOpen() { return _visible.current},
             get length() {return tourLength}
         })
-    }, [_visible, _step, open, close, prev, next, set, id, controlContext, tourLength])
+    }, [_visible, _step, open, close, prev, next, set, id, controlContext, tourLength, setWait])
 
     useEffect(function exportControl(){
         if(!controlContext) return;
@@ -472,11 +548,12 @@ const Tour = (
     useLayoutEffect(function scroll() {
         if(!step || (step && step.props.scroll === false)) return;
         step.props.onShow && step.props.onShow();
+        controlContext && controlContext.fire(id, 'show', {index: step.index, id: step.props.id})
         if(!step.target){
             scrollTo({top: 0, left: 0}, () => {
                 onAfterScroll && onAfterScroll(step.index)
                 step.props.onAfterScroll && step.props.onAfterScroll();
-                controlContext && controlContext.fire(id, "afterScroll", step.index)
+                controlContext && controlContext.fire(id, "afterScroll", step.index, step.props.id)
             });
             return;
         }
@@ -536,8 +613,8 @@ const Tour = (
             })
         }
         step && controlContext && controlContext.fire(id, "change", {
-            index : step,
-            props: step.props,
+            index : step.index,
+            id: step.props.id,
         })
     }, [step, onChange, id, controlContext])
 
@@ -621,6 +698,7 @@ const Tour = (
         }
     }, [step, close, closeOnBackdrop])
 
+
     /**
      * External closing button, or build in CloseButton component with default or custom button content
      * function() : react.component
@@ -684,16 +762,18 @@ const Tour = (
             <Modal
                 visible={visible}
                 target={step && step.target}
-                placement={(step && step.props.placement) || "top"}
+                placement={(step && step.props.placement) || "center"}
                 offsetX = {modalOffsetX}
                 offsetY = {modalOffsetY}
                 scrollTarget={scrollTarget}
-                refreshTimeout={modalRefreshTimeout}>
+                refreshTimeout={modalRefreshTimeout}
+                isWating = {isWaiting}>
                 <div className={contentClassName}>
                     {(badge !== false) &&
                         <Badge current={step && step.index}
                                length={tourLength}
                                transform={badge}
+                               isWaiting={isWaiting}
                                className={badgeClassName}/>}
                     {closingButton}
                     {currentContent}
@@ -720,7 +800,7 @@ const Tour = (
                 target={pin.target}
                 scrollTarget={scrollTarget}
                 placement={pin.placement}
-                onClick={ () => {open(); onOpen && onOpen()}}
+                onClick={ () => open(true)}
                 offset={pin.offset}/>
             }
         </div>

@@ -2,6 +2,7 @@ import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 
 const propTypes = {
+    id: PropTypes.string, // step identification
     selector: PropTypes.string, // css selector if is not provided then it will be located in relation to window
     placement: PropTypes.oneOf([
         "center", // only in relation to window - in relation to selector it will cover object !!!
@@ -9,10 +10,13 @@ const propTypes = {
         "top-right", "top-left",
         "bottom-right", "bottom-left"
     ]),
+    content: PropTypes.func,// content render function called with isWaiting bool arg
+    // it takes precedence over regular children step content
     onBeforeShow: PropTypes.func, // called before show, you can prepare some action here
     onShow: PropTypes.func, // called after showing step but before scroll
     onAfterScroll: PropTypes.func, /// called after scrolling window to step position
     onBeforeNext: PropTypes.func, // if return false block go to next step
+    onWait: PropTypes.func, // called when step is waiting to show - with true when waits and false when is finish
     approve: PropTypes.oneOfType([
         PropTypes.bool, // if you pass just 'approve=true' by default it will take click event
         PropTypes.shape({
@@ -48,6 +52,11 @@ const propTypes = {
         PropTypes.string, // text over hover pin if you pass empty string then tool tip will disappear
     ]),
     className: PropTypes.string, // class name for step wrapper
+
+    wait: PropTypes.oneOfType([
+        PropTypes.func, // a function returning promise
+        PropTypes.number // a number of milliseconds to wait
+    ])
 }
 
 const Step = ({children, className}) => {

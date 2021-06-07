@@ -12,15 +12,26 @@ const propTypes = {
     offsetY: PropTypes.number, // offset from initial destination placement
     offsetX: PropTypes.number,
     visible: PropTypes.bool, // is visible state
+    isWaiting: PropTypes.bool, // if is waiting for next step ready
     refreshTimeout: PropTypes.number, // time after transition end to refresh position - in some case browser can change size
     // dialog and then recalculation can update position - usually on mobile device when is not enough space
     scrollTarget: PropTypes.oneOfType([
         PropTypes.instanceOf(Window),
         PropTypes.instanceOf(HTMLElement)
-    ])
+    ]),
 }
 
-const Modal = ({children, target, placement, offsetX, offsetY, visible, refreshTimeout = 801, scrollTarget= window}) => {
+const Modal = (
+{
+    children,
+    target,
+    placement,
+    offsetX,
+    offsetY,
+    visible,
+    isWaiting,
+    refreshTimeout = 801, scrollTarget= window
+}) => {
     const container = useRef();
     const [modalStyles , setModalStyles] = useState({});
     const [finalPlacement, setFinalPlacement] = useState();
@@ -232,8 +243,9 @@ const Modal = ({children, target, placement, offsetX, offsetY, visible, refreshT
     const modalClasses = useMemo(()=>{
         return `rtg__modal `
              +['rtg__modal--hidden ', 'rtg__modal--visible '][+!!visible]
+             +['rtg__modal--waiting ', ' '][+!isWaiting]
              + (finalPlacement ? `rtg__modal--` + finalPlacement : "");
-    }, [visible, finalPlacement])
+    }, [visible, finalPlacement, isWaiting])
 
     return (
         <div ref={container} className={modalClasses} style={modalStyles}>
