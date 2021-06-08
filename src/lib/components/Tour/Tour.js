@@ -354,6 +354,8 @@ const Tour = (
      * set current step - configuration of current step
      */
     const setCurrentStep = useCallback(index => {
+        if(isWaiting)
+            return
         if(onNext && typeof onNext === "function"){
             index = onNext(((step && step.index) || startFrom || 0) , index, tourLength, step.props.id) ?? index;
         }
@@ -443,7 +445,7 @@ const Tour = (
             go();
 
     }, [setStep, getStep, getStepIndex, step, startFrom, tourLength, lock, updateIsWaiting, onNext, onLock,
-        displayPin, setPin, pinOffset, pinText, id , controlContext, waitsMap])
+        displayPin, setPin, pinOffset, pinText, id , controlContext, waitsMap, isWaiting])
 
     const next = useCallback(() => {
         setCurrentStep((step && (step.index + 1)) || 0);
