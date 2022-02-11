@@ -72,7 +72,7 @@
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.0",
     "mini-css-extract-plugin": "0.8.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
     "pnp-webpack-plugin": "1.5.0",
     "postcss": "^8.3.0",
