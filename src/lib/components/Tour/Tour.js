@@ -153,7 +153,7 @@ const Tour = (
     const [step, setStep, _step] = useStateRef(null);
     const [startFrom, setStartFrom] = useState(
         typeof startAt === "string"
-        ? (children instanceof Array ? children : [children]).findIndex(step => step.props.id === startAt)
+        ? (children instanceof Array ? children : [children]).findIndex(step => step?.props?.id === startAt)
         : startAt
     );
     const [visible, setVisible, _visible, setOnVisibleChangeCallback] = useStateRefCallback(false);
@@ -228,7 +228,7 @@ const Tour = (
      * @type {function(*): number}
      */
     const getStepIndex = useCallback(id => {
-        return [...getSteps()].findIndex(step => step.props.id === id)
+        return [...getSteps()].findIndex(step => step?.props?.id === id)
     }, [getSteps])
 
     /**
@@ -240,10 +240,10 @@ const Tour = (
             return typeof initialContent === "function"
                 ? initialContent() : null;
 
-        const _step = getStep(step.index)
+        const _step = getStep(step?.index)
 
-        return _step.props.content && typeof _step.props.content === "function"
-            ? _step.props.content(isWaiting)
+        return _step?.props.content && typeof _step?.props?.content === "function"
+            ? _step?.props?.content(isWaiting)
             : _step;
 
     }, [getStep, step, isWaiting, initialContent]);
@@ -254,8 +254,8 @@ const Tour = (
      */
     const bdOffsetX = useMemo(()=>{
         return firstOf([
-            step && step.props.backdropOffsetX,
-            step && step.props.backdropOffset,
+            step && step?.props?.backdropOffsetX,
+            step && step?.props?.backdropOffset,
             backdropOffsetX,
             backdropOffset,
             5
@@ -268,8 +268,8 @@ const Tour = (
      */
     const bdOffsetY = useMemo(()=>{
         return firstOf([
-            step && step.props.backdropOffsetY,
-            step && step.props.backdropOffset,
+            step && step?.props?.backdropOffsetY,
+            step && step?.props?.backdropOffset,
             backdropOffsetY,
             backdropOffset,
             5
@@ -282,8 +282,8 @@ const Tour = (
      */
     const modalOffsetX = useMemo(()=>{
         return firstOf([
-            step && step.props.offsetX,
-            step && step.props.offset,
+            step && step?.props?.offsetX,
+            step && step?.props?.offset,
             offsetX,
             offset,
             30,
@@ -296,8 +296,8 @@ const Tour = (
      */
     const modalOffsetY = useMemo(()=>{
         return firstOf([
-            step && step.props.offsetY,
-            step && step.props.offset,
+            step && step?.props?.offsetY,
+            step && step?.props?.offset,
             offsetY,
             offset,
             30
@@ -312,7 +312,7 @@ const Tour = (
         const _locks = [];
         let index = 0;
         for(let step of getSteps()){
-            if(step.props.approve && step.props.approve.lock){
+            if(step?.props?.approve && step?.props?.approve?.lock){
                 _locks.push(index);
             }
             index++;
@@ -343,9 +343,9 @@ const Tour = (
      * @type {(function(*=, *=, *): void)|*}
      */
     const updateIsWaiting = useCallback((index, state, step) => {
-        onWait && onWait({index, state, id: step.props.id})
-        step.props.onWait && step.props.onWait(state)
-        controlContext.fire(id, 'wait', {index, state, id: step.props.id})
+        onWait && onWait({index, state, id: step?.props?.id})
+        step?.props?.onWait && step?.props?.onWait(state)
+        controlContext.fire(id, 'wait', {index, state, id: step?.props?.id})
         setIsWaiting(state)
     }, [id, setIsWaiting, onWait, controlContext])
 
@@ -357,16 +357,16 @@ const Tour = (
         if(isWaiting)
             return
         if(onNext && typeof onNext === "function"){
-            index = onNext(((step && step.index) || startFrom || 0) , index, tourLength, step.props.id) ?? index;
+            index = onNext(((step && step?.index) || startFrom || 0) , index, tourLength, step?.props?.id) ?? index;
         }
         if(controlContext !== null){
             index = controlContext.fire(
                 id,
                 "next",
-                ((step && step.index) || startFrom || 0) ,
+                ((step && step?.index) || startFrom || 0) ,
                 index,
                 tourLength,
-                ((step && step.props.id) || null)
+                ((step && step?.props?.id) || null)
             )[0] ?? index
         }
 
@@ -386,7 +386,7 @@ const Tour = (
         const _step = getStep(index);
 
         let waitPromise = null;
-        const wait = _step.props.wait || waitsMap.current[index];
+        const wait = _step?.props?.wait || waitsMap.current[index];
         if (wait !== undefined){
             if(typeof wait === "number"){
                 waitPromise = new Promise((res) => setTimeout(() => res(), Math.abs(wait)))
@@ -402,20 +402,20 @@ const Tour = (
         const go = () => {
             wasWaiting && updateIsWaiting(index, false, _step)
 
-            _step.props.onBeforeShow && _step.props.onBeforeShow();
+            _step?.props?.onBeforeShow && _step?.props?.onBeforeShow();
 
-            const target = document.querySelector(_step.props.selector);
+            const target = document.querySelector(_step?.props?.selector);
 
             setStep( current => {
-                if(current && current.props.onBeforeNext){
-                    if(current.props.onBeforeNext() === false){
+                if(current && current?.props?.onBeforeNext){
+                    if(current.props?.onBeforeNext() === false){
                         return current;
                     }
                 }
                 return {
                     index,
                     target,
-                    props: _step.props,
+                    props: _step?.props,
                 }
             })
 
@@ -423,16 +423,16 @@ const Tour = (
                 visible: false,
                 target: target,
                 placement: firstOf([
-                    _step.props.pinPlacement,
-                    _step.props.placement,
+                    _step?.props?.pinPlacement,
+                    _step?.props?.placement,
                     "center"]
                 ),
                 offset : firstOf([
-                    _step.props.pinOffset,
+                    _step?.props?.pinOffset,
                     pinOffset,
                     0
                 ]),
-                pinText: firstOf([_step.props.pinText, pinText])
+                pinText: firstOf([_step?.props?.pinText, pinText])
             });
         }
         if(waitPromise){
@@ -448,11 +448,11 @@ const Tour = (
         displayPin, setPin, pinOffset, pinText, id , controlContext, waitsMap, isWaiting])
 
     const next = useCallback(() => {
-        setCurrentStep((step && (step.index + 1)) || 0);
+        setCurrentStep((step && (step?.index + 1)) || 0);
     }, [step, setCurrentStep])
 
     const prev = useCallback(() => {
-        setCurrentStep((step && (step.index - 1)) || 0);
+        setCurrentStep((step && (step?.index - 1)) || 0);
     }, [step, setCurrentStep]);
 
     const set = useCallback((index)=>{
@@ -472,10 +472,10 @@ const Tour = (
 
         setVisible(false);
         //if is pass skipp=true to close or is last step then pin will not be displayed
-        displayPin && setPin( pin => ({...pin, visible: (step.index === tourLength - 1) ? false : !skip }));
+        displayPin && setPin( pin => ({...pin, visible: (step?.index === tourLength - 1) ? false : !skip }));
         setStep( step => {
-            setStartFrom(startFrom => step ? step.index : (startFrom || 0));
-            if(step && (step.index === tourLength - 1)){
+            setStartFrom(startFrom => step ? step?.index : (startFrom || 0));
+            if(step && (step?.index === tourLength - 1)){
               onFinish && onFinish();
               controlContext && controlContext.fire(id, "finish");
             }
@@ -520,7 +520,7 @@ const Tour = (
             next,
             set,
             setWait,
-            get step() { return _step.current},
+            get step() { return _step?.current},
             get isOpen() { return _visible.current},
             get length() {return tourLength}
         })
@@ -548,21 +548,21 @@ const Tour = (
      * if current step is change then fire up scroll
      */
     useLayoutEffect(function scroll() {
-        if(!step || (step && step.props.scroll === false)) return;
-        step.props.onShow && step.props.onShow();
-        controlContext && controlContext.fire(id, 'show', {index: step.index, id: step.props.id})
-        if(!step.target){
+        if(!step || (step && step?.props?.scroll === false)) return;
+        step?.props?.onShow && step?.props?.onShow();
+        controlContext && controlContext.fire(id, 'show', {index: step?.index, id: step?.props?.id})
+        if(!step?.target){
             scrollTo({top: 0, left: 0}, () => {
-                onAfterScroll && onAfterScroll(step.index)
-                step.props.onAfterScroll && step.props.onAfterScroll();
-                controlContext && controlContext.fire(id, "afterScroll", step.index, step.props.id)
+                onAfterScroll && onAfterScroll(step?.index)
+                step?.props?.onAfterScroll && step?.props?.onAfterScroll();
+                controlContext && controlContext.fire(id, "afterScroll", step?.index, step?.props?.id)
             });
             return;
         }
         let top, left;
-        const targetRect = step.target.getBoundingClientRect();
+        const targetRect = step?.target.getBoundingClientRect();
 
-        let scrollParent = getScrollParent(step.target, scrollHiddenOverflow, ":not(html):not(body)");
+        let scrollParent = getScrollParent(step?.target, scrollHiddenOverflow, ":not(html):not(body)");
 
         if(scrollParent){
             const parentRect = scrollParent.getBoundingClientRect();
@@ -580,30 +580,30 @@ const Tour = (
             }
         }
 
-        switch(step.props.placement){
+        switch(step?.props?.placement){
             case "left":
             case "right": {
-                top = offsetTop(step.target, scrollTarget) - window.innerHeight / 2 + targetRect.height / 2;
-                left = step.target.offsetLeft - window.innerWidth / 2;
+                top = offsetTop(step?.target, scrollTarget) - window.innerHeight / 2 + targetRect.height / 2;
+                left = step?.target.offsetLeft - window.innerWidth / 2;
                 break;
             }
             case "bottom": {
-                top = offsetTop(step.target, scrollTarget) - window.innerHeight / 2 + targetRect.height;
-                left = step.target.offsetLeft - window.innerWidth / 2;
+                top = offsetTop(step?.target, scrollTarget) - window.innerHeight / 2 + targetRect.height;
+                left = step?.target.offsetLeft - window.innerWidth / 2;
                 break;
             }
             case "top":
             default : {
-                top = offsetTop(step.target, scrollTarget) - window.innerHeight / 2 ;
-                left = step.target.offsetLeft - window.innerWidth / 2;
+                top = offsetTop(step?.target, scrollTarget) - window.innerHeight / 2 ;
+                left = step?.target.offsetLeft - window.innerWidth / 2;
             }
         }
-        top += step.props.scrollOffsetY || step.props.scrollOffset || 0;
-        left += step.props.scrollOffsetX || 0;
+        top += step?.props?.scrollOffsetY || step?.props?.scrollOffset || 0;
+        left += step?.props?.scrollOffsetX || 0;
 
         scrollTo({top, left}, () => {
-            onAfterScroll && onAfterScroll(step.index)
-            controlContext && controlContext.fire(id, "afterScroll", step.index)
+            onAfterScroll && onAfterScroll(step?.index)
+            controlContext && controlContext.fire(id, "afterScroll", step?.index)
         })
     }, [scrollTo, step, setStep, bdOffsetX, bdOffsetY, scrollHiddenOverflow, onAfterScroll, scrollTarget, id , controlContext]);
 
@@ -611,12 +611,12 @@ const Tour = (
         if(onChange && step){
             onChange({
                 index : step,
-                props: step.props,
+                props: step?.props,
             })
         }
         step && controlContext && controlContext.fire(id, "change", {
-            index : step.index,
-            id: step.props.id,
+            index : step?.index,
+            id: step?.props?.id,
         })
     }, [step, onChange, id, controlContext])
 
@@ -641,7 +641,7 @@ const Tour = (
      */
     useEffect(function applyApprove(){
         if(!step || !isOpen) return;
-        const approve = step.props.approve;
+        const approve = step?.props?.approve;
         if(!approve) return;
         if(approve.promise && typeof approve.promise  === "function"){
             const promise = approve.promise();
@@ -654,7 +654,7 @@ const Tour = (
         }
         if(approve.event === "none") return;
         const approveEvent = approve.event || 'click';
-        const approveTarget = (approve.target && document.querySelector(approve.target)) || step.target;
+        const approveTarget = (approve.target && document.querySelector(approve.target)) || step?.target;
         if(!approveTarget) return;
         const approveCallback = (event) => {
             const goNext = () => {
@@ -687,9 +687,9 @@ const Tour = (
      * if backdrop layer is clicked then current step is closed
      */
     useEffect(function backdropClose(){
-        if(!step || (step && (!step.props.closeOnBackdrop && !closeOnBackdrop))) return;
+        if(!step || (step && (!step?.props?.closeOnBackdrop && !closeOnBackdrop))) return;
         const click = ({target}) => {
-            if(!target.closest(step.props.selector+  " , .rtg__container") && isMounted(target)){
+            if(!target.closest(step?.props?.selector+  " , .rtg__container") && isMounted(target)){
                 close();
                 window.removeEventListener("click", click);
             }
@@ -737,9 +737,9 @@ const Tour = (
      */
     const containerClassName = useMemo(()=>{
         return "rtg__container "
-        + "rtg__container--step-" + ((step ? step.index + 1 : startFrom + 1 ) || 0 ) + " "
+        + "rtg__container--step-" + ((step ? step?.index + 1 : startFrom + 1 ) || 0 ) + " "
         + ( className || "") + " "
-        + ((step && step.props.className ) || " ")
+        + ((step && step?.props?.className ) || " ")
     }, [step, className, startFrom])
 
     /**
@@ -750,21 +750,21 @@ const Tour = (
     const contentClassName = useMemo(()=>{
         return "rtg__modal__content "
         + (className ? className + "__content " : "") || ""
-        + (step && step.props.className && step.props.className + "__content" ) || "";
+        + (step && step?.props?.className && step?.props?.className + "__content" ) || "";
     }, [step, className])
 
     return ReactDOM.createPortal((
         <div className={containerClassName}>
             <Backdrop
                 visible={visible}
-                target={step && step.target}
+                target={step && step?.target}
                 offsetX={bdOffsetX}
                 offsetY={bdOffsetY}
                 scrollTarget={scrollTarget}/>
             <Modal
                 visible={visible}
-                target={step && step.target}
-                placement={(step && step.props.placement) || "center"}
+                target={step && step?.target}
+                placement={(step && step?.props?.placement) || "center"}
                 offsetX = {modalOffsetX}
                 offsetY = {modalOffsetY}
                 scrollTarget={scrollTarget}
@@ -772,7 +772,7 @@ const Tour = (
                 isWating = {isWaiting}>
                 <div className={contentClassName}>
                     {(badge !== false) &&
-                        <Badge current={step && step.index}
+                        <Badge current={step && step?.index}
                                length={tourLength}
                                transform={badge}
                                isWaiting={isWaiting}
@@ -781,14 +781,14 @@ const Tour = (
                     {currentContent}
                     { controls && controls({
                                     set, prev, next, close,
-                                    current: step && step.index,
+                                    current: step && step?.index,
                                     length: tourLength,
                                     lock: lock.current})
                     }
                     { !controls &&
                         <Control next={next} prev={prev} set={set}
                                  length={tourLength}
-                                 current={step && step.index}
+                                 current={step && step?.index}
                                  withNumber={controlNumbers}
                                  lock={lock.current}
                                  controlButtons={controlButtonsContent}
